@@ -13,6 +13,8 @@
         #endregion
 
         IQuantity Quantity { get; }
+        float ToStandardUnit(float amount);
+        float AmountToUnit(float amount);
     }
 
     public interface IUnit<Z> : IUnit where Z : class, IQuantity<Z>
