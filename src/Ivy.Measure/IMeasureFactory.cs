@@ -23,6 +23,7 @@
         float Amount { get; }
         float StandardAmount { get; }
         IUnit Unit { get; }
+        float GetAmount(IUnit unit);
         IMeasure this[IUnit iUnit] { get; }
     }
 }

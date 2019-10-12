@@ -2,6 +2,8 @@
 {
     using System;
     using System.Globalization;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
 
     public class Measure<Q> : IMeasure<Q> where Q : class, IQuantity<Q>, new()
     {
@@ -33,7 +35,7 @@
                 throw new ArgumentNullException(nameof(unit));
             if (!unit.Quantity.Equals(default(Q)))
                 throw new ArgumentException("Unit is not the same quantity as measure");
-            return unit.ConvertStandardAmountToUnit(StandardAmount);
+            return unit.AmountToUnit(StandardAmount);
         }
 
         IMeasure IMeasure.this[IUnit unit] => this[unit as IUnit<Q>];

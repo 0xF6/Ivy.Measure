@@ -53,7 +53,7 @@ namespace Ivy.Measure
 
     public static class MetricPrefixExtensions
     {
-        public static char GetSymbolOf(this MetricPrefix prefix) =>
+        public static char GetSymbol(this MetricPrefix prefix) =>
             typeof(MetricPrefix)
                 .GetMember($"{prefix}")
                 .First()

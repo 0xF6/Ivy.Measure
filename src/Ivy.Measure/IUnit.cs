@@ -8,7 +8,7 @@
 
         bool IsStandard { get; }
         string DisplayFullName { get; }
-        char Symbol { get; }
+        string Symbol { get; }
 
         #endregion
 

@@ -7,7 +7,7 @@
     {
         private static readonly X quantity = new X();
         private string displayName;
-        protected Unit(bool isStandardUnit, char symbol)
+        protected Unit(bool isStandardUnit, string symbol)
         {
             IsStandard = isStandardUnit;
             Symbol = symbol;
@@ -18,7 +18,7 @@
 
         public bool IsStandard { get; }
         public string DisplayFullName => displayName ??= CreateUnitDisplayName(this);
-        public char Symbol { get; }
+        public string Symbol { get; }
 
         public IQuantity<X> Quantity => quantity;
         public abstract float ToStandardUnit(float amount);
