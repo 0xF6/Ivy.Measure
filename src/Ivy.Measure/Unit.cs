@@ -1,23 +1,28 @@
 ﻿namespace Ivy.Measure
 {
+    using System.Linq;
+    using System.Reflection;
+
     public abstract class Unit<X> : IUnit<X> where X : class, IQuantity<X>, new()
     {
         private static readonly X quantity = new X();
-
+        private string displayName;
         protected Unit(bool isStandardUnit, char symbol)
         {
-            this.IsStandard = isStandardUnit;
-            this.Symbol = symbol;
-            this.DisplayFullName = null;
+            IsStandard = isStandardUnit;
+            Symbol = symbol;
+            displayName = null;
         }
 
         #region Implementation of IUnit
 
         public bool IsStandard { get; }
-        public string DisplayFullName { get; }
+        public string DisplayFullName => displayName ??= CreateUnitDisplayName(this);
         public char Symbol { get; }
 
-        public IQuantity<X> Quantity => throw new System.NotImplementedException();
+        public IQuantity<X> Quantity => quantity;
+        public abstract float ToStandardUnit(float amount);
+        public abstract float AmountToUnit(float amount);
 
         IQuantity IUnit.Quantity => quantity;
 
@@ -52,6 +57,21 @@
 
         public override string ToString() => DisplayFullName;
 
+        #endregion
+
+        #region etc
+        internal static string CreateUnitDisplayName(IUnit unit)
+        {
+            var fieldInfo =
+                Assembly.GetExecutingAssembly()
+                    .GetTypes()
+                    .Where(type => type.IsInstanceOfType(unit.Quantity) && !type.IsInterface)
+                    .SelectMany(type => type.GetFields(BindingFlags.Public | BindingFlags.Static))
+                    .SingleOrDefault(info => ReferenceEquals(info.GetValue(obj: null), unit));
+            return fieldInfo == null
+                ? $"{unit.Symbol}"
+                : $"{fieldInfo.Name} | {(string.IsNullOrWhiteSpace($"{unit.Symbol}") ? "<none>" : $"{unit.Symbol}")}";
+        }
         #endregion
     }
 }
