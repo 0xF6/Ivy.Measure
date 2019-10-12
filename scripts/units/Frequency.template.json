@@ -1,0 +1,18 @@
+{
+    "Name": "Frequency",
+    "NameLower": null,
+    "Differentiator": null,
+    "Length": 0,
+    "Mass": 0,
+
+    "Time": -1,
+    "Current": 0,
+    "Temperature": 0,
+    "Luminous": 0,
+    "Substance": 0,
+
+    "Unit": "Hertz",
+    "Symbol": "Hz",
+    "loExp": -9,
+    "hiExp": 9
+}
