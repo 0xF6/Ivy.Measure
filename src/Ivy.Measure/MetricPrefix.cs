@@ -66,7 +66,7 @@ namespace Ivy.Measure
                 .GetCustomAttribute<MetricMetadataAttribute>()
                 ._factor;
 
-        private static float GetFactor(this MetricPrefix prefix) =>
+        public static float GetFactor(this MetricPrefix prefix) =>
             MathF.Pow(10f, prefix.GetFactorValue());
     }
     public class MetricMetadataAttribute : Attribute
